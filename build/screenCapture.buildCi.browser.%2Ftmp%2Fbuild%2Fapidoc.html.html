@@ -1,0 +1,220 @@
+<html><head></head><body><div class="apidocDiv">
+<style>
+/*csslint
+*/
+.apidocDiv {
+    background: #fff;
+    font-family: Arial, Helvetica, sans-serif;
+}
+.apidocDiv a[href] {
+    color: #33f;
+    font-weight: bold;
+    text-decoration: none;
+}
+.apidocDiv a[href]:hover {
+    text-decoration: underline;
+}
+.apidocCodeCommentSpan {
+    background: #bbf;
+    color: #000;
+    display: block;
+}
+.apidocCodeKeywordSpan {
+    color: #d00;
+    font-weight: bold;
+}
+.apidocCodePre {
+    background: #eef;
+    border: 1px solid;
+    color: #777;
+    padding: 5px;
+    white-space: pre-wrap;
+}
+.apidocFooterDiv {
+    margin-top: 20px;
+    text-align: center;
+}
+.apidocModuleLi {
+    margin-top: 10px;
+}
+.apidocSectionDiv {
+    border-top: 1px solid;
+    margin-top: 20px;
+}
+.apidocSignatureSpan {
+    color: #777;
+    font-weight: bold;
+}
+</style>
+<h1>api documentation for
+    <a href="http://absurdjs.com/">absurd (v0.3.8)</a>
+</h1>
+<h4>JavaScript library with superpowers - http://absurdjs.com/</h4>
+<div class="apidocSectionDiv"><a href="#apidoc.tableOfContents" id="apidoc.tableOfContents"><h1>table of contents</h1></a><ol>
+
+    <li class="apidocModuleLi"><a href="#apidoc.module.absurd">module absurd</a><ol>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.absurd.absurd">
+            function <span class="apidocSignatureSpan"></span>absurd
+            <span class="apidocSignatureSpan">(func)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <span class="apidocSignatureSpan">object <span class="apidocSignatureSpan">absurd.</span>Prefixes</span>
+
+        </li>
+
+    </ol></li>
+
+    <li class="apidocModuleLi"><a href="#apidoc.module.absurd.Prefixes">module absurd.Prefixes</a><ol>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.absurd.Prefixes.addPrefixes">
+            function <span class="apidocSignatureSpan">absurd.Prefixes.</span>addPrefixes
+            <span class="apidocSignatureSpan">(prop, obj)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.absurd.Prefixes.nonPrefixProp">
+            function <span class="apidocSignatureSpan">absurd.Prefixes.</span>nonPrefixProp
+            <span class="apidocSignatureSpan">(prop)</span>
+            </a>
+
+        </li>
+
+    </ol></li>
+
+</ol></div>
+
+<div class="apidocSectionDiv">
+<h1><a href="#apidoc.module.absurd" id="apidoc.module.absurd">module absurd</a></h1>
+
+
+    <h2>
+        <a href="#apidoc.element.absurd.absurd" id="apidoc.element.absurd.absurd">
+        function <span class="apidocSignatureSpan"></span>absurd
+        <span class="apidocSignatureSpan">(func)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">absurd = function (func) {
+	api = require("./lib/API.js")();
+	if(typeof func == "function") {
+		func(api);
+	} else if(typeof func == "string") {
+		api.import(func);	
+	}
+	return api;
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    </ul>
+
+
+
+
+</div>
+
+<div class="apidocSectionDiv">
+<h1><a href="#apidoc.module.absurd.Prefixes" id="apidoc.module.absurd.Prefixes">module absurd.Prefixes</a></h1>
+
+
+    <h2>
+        <a href="#apidoc.element.absurd.Prefixes.addPrefixes" id="apidoc.element.absurd.Prefixes.addPrefixes">
+        function <span class="apidocSignatureSpan">absurd.Prefixes.</span>addPrefixes
+        <span class="apidocSignatureSpan">(prop, obj)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">addPrefixes = function (prop, obj) {
+		var originalProp = prop, p = prefixExtract(prop), value = obj[prop];
+		if(p.prefix !== false) {
+			delete obj[originalProp];
+			obj[p.prop] = value;
+			if(p.prefix === '' || p.prefix.indexOf('w') &gt;= 0)
+				obj['-webkit-' + p.prop] = value;
+			if(p.prefix === '' || p.prefix.indexOf('m') &gt;= 0)
+				obj['-moz-' + p.prop] = value;
+			if(p.prefix === '' || p.prefix.indexOf('s') &gt;= 0)
+				obj['-ms-' + p.prop] = value;
+			if(p.prefix === '' || p.prefix.indexOf('o') &gt;= 0)
+				obj['-o-' + p.prop] = value;
+		}
+	}</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+					// moving the selector to the top of the chain
+					if(_selector.indexOf("^") === 0) {
+						_selector = _selector.substr(1, _selector.length-1) + (typeof parentSelector !== "undefined" ? " " + parentSelector
+ : '');
+					} else {
+						_selector = typeof parentSelector !== "undefined" ? parentSelector + " " + selector : selector;
+					}
+					_props[prop] = props[prop];
+					prefixes.<span class="apidocCodeKeywordSpan">addPrefixes</span>(prop, _props);
+				}
+			} else if(type === 'object') {
+				_objects[prop] = props[prop];
+			} else if(type === 'function') {
+				_functions[prop] = props[prop];
+			}
+		}
+...</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.element.absurd.Prefixes.nonPrefixProp" id="apidoc.element.absurd.Prefixes.nonPrefixProp">
+        function <span class="apidocSignatureSpan">absurd.Prefixes.</span>nonPrefixProp
+        <span class="apidocSignatureSpan">(prop)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">nonPrefixProp = function (prop) {
+		var p = prefixExtract(prop);
+		if(p.prefix !== false) {
+			if(p.prefix == '') {
+				p.prefix = '-';
+			} else {
+				p.prefix = '-' + p.prefix + '-';
+			}
+		}
+		return p;
+	}</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+		toRegister = [],
+		options = {
+			combineSelectors: true,
+			preventCombining: ['@font-face']
+		};
+
+	var checkAndExecutePlugin = function(selector, prop, value, stylesheet, parentSelector) {
+		var prefix = prefixes.<span class="apidocCodeKeywordSpan">nonPrefixProp</span>(prop);
+		var plugin = API.getPlugins()[prefix.prop];
+		// console.log("\nChecking for plugin: " + prefix.prop + " (" + prop + ")");
+		if(typeof plugin !== 'undefined') {
+			var pluginResponse = plugin(API, value, prefix.prefix);
+			if(pluginResponse) {
+				addRule(selector, pluginResponse, stylesheet, parentSelector);
+			}
+...</pre></li>
+    </ul>
+
+
+</div>
+
+<div class="apidocFooterDiv">
+    [ this document was created with
+    <a href="https://github.com/kaizhu256/node-utility2" target="_blank">utility2</a>
+    ]
+</div>
+</div>
+</body></html>
